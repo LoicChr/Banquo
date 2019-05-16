@@ -50,7 +50,7 @@ pdf_species <- lapply(levels(data$species), function(x){
   Mclust(na.omit(data[data$species==x, c("poros","rdmc")]), warn=TRUE)
 })
 names(pdf_species) <- levels(data$species)
-P_S_E_tra <- traitspace(data, multi.mod, env, pdf_species, N = 20, avg.out =T)
+P_S_E_tra <- traitspace(multi.mod, env, pdf_species, N = 20, avg.out =T)
 
 ### Height model
 banquo_out_H <- ML_interactions(P_S_E_tra, trait = t.avg$maxht, comm, lb = c(-5, -0.9, -2), ub = c(-0.5, 0.9, 0.75), 
