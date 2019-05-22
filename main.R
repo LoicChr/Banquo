@@ -54,7 +54,7 @@ P_S_E_tra <- traitspace(multi.mod, env, pdf_species, N = 20, avg.out =T)
 
 ### Height model
 banquo_out_H <- ML_interactions(P_S_E_tra, trait = t.avg$maxht, comm, lb = c(-5, -0.9, -2), ub = c(-0.5, 0.9, 0.75), 
-                                opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 10))
+                                opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 1000))
 
 ### SLA model
 banquo_out_S <- ML_interactions(P_S_E_tra, trait = t.avg$sla, comm, lb = c(-5, -0.9, -2), ub = c(-0.5, 0.9, 0.75), 
@@ -69,3 +69,4 @@ banquo_out_HS2 <- ML_interactions_bi_pol(P_S_E_tr=P_S_E_tra, trait1 = t.avg$Axis
                                     lb = c(-5, 0,-1.5,0, -1.5,-0.9), ub = c(-1, 0.8, 2, 2*pi,2,0.9),
                                     opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 2000))
 
+#Notes: the parametrization of the 'opts' arguments is the same as in the original paper
