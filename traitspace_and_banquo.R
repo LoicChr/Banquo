@@ -3,7 +3,7 @@
 #   Banquo and Traitspace functions                                           #
 #   From the article: Integrating traits, competition and abiotic filtering   #
 #                 improves biodiversity predictions                           #
-#   Authors: Loïc Chalmandrier, Daniel B. Stouffer, Daniel C. Laughlin        #
+#   Authors: Loïc Chalmandrier*, Daniel B. Stouffer, Daniel C. Laughlin        #
 #   *contact                                                                  #
 ###############################################################################
 
@@ -76,8 +76,11 @@ traitspace <- function(trait.model, env, PT.Sk, N = 100, avg.out = TRUE){
 
 banquo <- function(P_S_E, tr, intercept=1, mu=-1.5, sigma =0, intra = NULL, rho = 0, avg.out = TRUE, out_alpha = FALSE){
   require(corpcor)
+  ### Banquo computes species abundances based on the traitspace object, the trait that controls competition 
+  #### and the parameters
   ##### Arguments.
   # P_S_E: the output of the traitspace function
+  # tr : the trait(s) used to compute the interaction matrix
   # intercept, mu, sigma, intra, rho. The parameters to generate the interaction matrix
   # avg.out:  should the random draws be averaged out for the final output?
   # out_alpha : should the interaction matrix be saved in the output?
