@@ -61,11 +61,11 @@ banquo_out_S <- ML_interactions(P_S_E_tra, trait = t.avg$sla, comm, lb = c(-5, -
                                 opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 1000))
 
 ### HeightSLA models
-banquo_out_HS <- ML_interactions_bi(P_S_E_tra, trait1 = t.avg$maxht,trait2 = t.avg$slaRes, comm, det_lim = exp(-1.5),
+banquo_out_HS <- ML_interactions_bi_cart(P_S_E_tra, trait1 = t.avg$maxht,trait2 = t.avg$slaRes, comm, det_lim = exp(-1.5),
                                  lb = c(-5, -0.9,-1.5,-0.9, -1.5,-0.9), ub = c(-1, 0.9, 2, 0.9,2,0.9),
                                  opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 2000))
 
-banquo_out_HS2 <- ML_interactions_bi2(P_S_E_tr=P_S_E_tra, trait1 = t.avg$Axis1, trait2 = t.avg$Axis2, obs.comm = comm, det_lim = exp(-1.5),
+banquo_out_HS2 <- ML_interactions_bi_pol(P_S_E_tr=P_S_E_tra, trait1 = t.avg$Axis1, trait2 = t.avg$Axis2, obs.comm = comm, det_lim = exp(-1.5),
                                     lb = c(-5, 0,-1.5,0, -1.5,-0.9), ub = c(-1, 0.8, 2, 2*pi,2,0.9),
                                     opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 2000))
 
