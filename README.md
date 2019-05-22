@@ -1,4 +1,4 @@
-# Banquo2
+# Banquo
 
 This code is associated with the article: 'Integrating traits, competition and abiotic filtering improves biodiversity predictions' by Loïc Chalmandrier*, Daniel B. Stouffer*, Adam S. T. Purcell, William G. Lee, Andrew J. Tanentzap and Daniel C. Laughlin*
  
