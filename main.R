@@ -70,3 +70,5 @@ banquo_out_HS2 <- ML_interactions_bi_pol(P_S_E_tr=P_S_E_tra, trait1 = t.avg$Axis
                                     opts = list(algorithm = "NLOPT_GN_CRS2_LM", maxeval = 3e6, xtol_rel = 10e-10, population = 2000))
 
 #Notes: the parametrization of the argument 'opts' is the same as in the original paper
+
+source("figures.R")
