@@ -8,5 +8,7 @@ The code models species abundances using functional traits, community data and e
 
 main.R is the main script that show the procedure to treat the dataset and reproduces the model used in the original article. Details explanation of each function is provided in their associated script.
 
+figures.R computes the figures of the article using the results of the file 'results.Rdata' that contains the optimized Traitspace and Banquo models results that were used.
+
 System requirements
 R 3.6.0
