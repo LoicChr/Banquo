@@ -258,7 +258,7 @@ ML_interactions_bi_pol <- function(P_S_E_tr, trait1, trait2, obs.comm, lb = c(0,
   pars.tr <- params_tr(pars, det_lim = det_lim, sigma2_lb = lb[5], sigma2_ub = ub[5])
   
 
-  out <- banquo(P_S_E_tr, cbind(trait1, trait2), avg.out = T, 
+  pred <- banquo(P_S_E_tr, cbind(trait1, trait2), avg.out = T, 
                                intercept = 1 , 
                                mu = c(pars.tr["mu1"], pars.tr["mu2"]), 
                                sigma = c(pars.tr["sigma1"],pars.tr["sigma2"]),
