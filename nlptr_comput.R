@@ -64,7 +64,7 @@ ML_interactions <- function(P_S_E_tr, trait, obs.comm, lb = c(0, -1, 0.04),  ub 
     P_S_E_interactions <- as.matrix(P_S_E_interactions)
 
     #Computation of the likelihood
-    neglogLik <-  -sum(sapply(1:nrow(comm.red), function(j){ 
+    neglogLik <-  sum(sapply(1:nrow(comm.red), function(j){ 
       distHellinger(t(as.matrix(comm.red[j,])), t(as.matrix(P_S_E_interactions[j,])))
     }))
     
@@ -152,7 +152,7 @@ ML_interactions_bi_cart <- function(P_S_E_tr, trait1, trait2, obs.comm, lb = c(0
     P_S_E_interactions <- as.matrix(P_S_E_interactions)
     
     #Computation of the likelihood
-    neglogLik <-  -sum(sapply(1:nrow(comm.red), function(j){ 
+    neglogLik <-  sum(sapply(1:nrow(comm.red), function(j){ 
       distHellinger(t(as.matrix(comm.red[j,])), t(as.matrix(P_S_E_interactions[j,])))
     }))
     
@@ -244,7 +244,7 @@ ML_interactions_bi_pol <- function(P_S_E_tr, trait1, trait2, obs.comm, lb = c(0,
     P_S_E_interactions <- as.matrix(P_S_E_interactions)
     
     #Computation of the likelihood
-    neglogLik <-  -sum(sapply(1:nrow(comm.red), function(j){ 
+    neglogLik <-  sum(sapply(1:nrow(comm.red), function(j){ 
       distHellinger(t(as.matrix(comm.red[j,])), t(as.matrix(P_S_E_interactions[j,])))
     }))
     
