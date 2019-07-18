@@ -124,11 +124,12 @@ ML_interactions_bi_cart <- function(P_S_E_tr, trait1, trait2, obs.comm, lb = c(0
         }else{
           pars.tr["sigma2"] <- exp(pars["sigma2"])
         }
+        ratio <- max(0, 1 - (det_lim/(pars.tr["sigma1"]*pars.tr["sigma2"]))^2)
+        pars.tr["rho"] <- pars['rho']*max(0, sqrt(ratio))
       }else{
         pars.tr["sigma2"] <- exp(pars["sigma2"])
       }
-      ratio <- max(0, 1 - (det_lim/(pars.tr["sigma1"]*pars.tr["sigma2"]))^2)
-      pars.tr["rho"] <- pars['rho']*max(0, sqrt(ratio))
+
       return(pars.tr)
   }
   
@@ -217,11 +218,12 @@ ML_interactions_bi_pol <- function(P_S_E_tr, trait1, trait2, obs.comm, lb = c(0,
       }else{
         pars.tr["sigma2"] <- exp(pars["sigma2"])
       }
+      ratio <- max(0, 1 - (det_lim/(pars.tr["sigma1"]*pars.tr["sigma2"]))^2)
+      pars.tr["rho"] <- pars['rho']*max(0, sqrt(ratio))
     }else{
       pars.tr["sigma2"] <- exp(pars["sigma2"])
     }
-    ratio <- max(0, 1 - (det_lim/(pars.tr["sigma1"]*pars.tr["sigma2"]))^2)
-    pars.tr["rho"] <- pars['rho']*max(0, sqrt(ratio))
+
     return(pars.tr)
   }
   
