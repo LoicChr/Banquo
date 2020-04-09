@@ -1,13 +1,6 @@
-#Data prep
-obs <- read.csv("data/kettlehole_dataset/community.cover.15sp.csv", header=T, row.names = 1)
-load("data/tra2003/traitspace.Rdata")
-cover_class <- sort(unique(unlist(obs[obs > 0])))
-min_cut <- 0.5*(cover_class + c(0,cover_class[-length(cover_class)]))/100
-max_cut <- 0.5*(cover_class + c(cover_class[-1], 100))/100
-max_cut[which.max(max_cut)] <- 1
-min_cut[which.min(min_cut)] <- 0
+load("ozab_data.Rdata")
 
-obs <- obs[row.names(P_S_E_tra), colnames(P_S_E_tra)]
+# Pick a community
 pred <- P_S_E_tra[50,]
 obs <- obs[50,]
 
