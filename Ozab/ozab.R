@@ -30,9 +30,9 @@ ozab <- function(obs, pred){
   
   alpha = mean_cover * delta #Conversion in alpha/beta shape parameters
   beta = (1-mean_cover) * delta
-  j <- match(obs[x], cover_class)
+  j <- match(obs[x], cover_class$cover_class)
   
-  prob_cat <- pbeta(max_cut[j], alpha, beta) - pbeta(min_cut[j], alpha, beta)
+  prob_cat <- pbeta(cover_class$maxCov[j], alpha, beta) - pbeta(cover_class$minCov[j], alpha, beta)
   prob_ab <- prob_pres
   prob_ab[x] <- prob_ab[x]*prob_cat
   
