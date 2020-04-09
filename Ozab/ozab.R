@@ -11,7 +11,7 @@ phi <- 0.6
 a_ab <- 0.5
 b_ab <- 0.1
 sigma <- 2
-delta <- 0.8
+psi <- 0.8
 a_pa <- 0.5
 b_pa <- 0.1
 
@@ -28,8 +28,8 @@ ozab <- function(obs, pred){
         #Note I thought how having a error term determined by sigma here. 
         ##But I don't know how to integrate it in that equation.
   
-  alpha = mean_cover * delta #Conversion in alpha/beta shape parameters
-  beta = (1-mean_cover) * delta
+  alpha = mean_cover * psi #Conversion in alpha/beta shape parameters
+  beta = (1-mean_cover) * psi
   j <- match(obs[x], cover_class$cover_class)
   
   prob_cat <- pbeta(cover_class$maxCov[j], alpha, beta) - pbeta(cover_class$minCov[j], alpha, beta)
