@@ -45,8 +45,6 @@ prior <- createPrior(density = density, sampler = sampler, lower = bounds[,1], u
 bayesianSetup <- createBayesianSetup(likelihoodAb, prior, names = list_params)
 # # settings for the sampler
 settings <- list(iterations = 3e6, nrChains = 4) #50000 per chains in the one chain triplet
-settings <- list(iterations = 100, nrChains = 2) #50000 per chains in the one chain triplet
-
 out <- runMCMC(bayesianSetup = bayesianSetup, settings = settings) # Run the mcmc
 
 save(out, file = paste0(result_file, "/chain1.Rdata")) #Save the results

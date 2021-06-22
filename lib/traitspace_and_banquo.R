@@ -77,7 +77,7 @@ traitspace <- function(trait.model, env, PT.Sk, N = 100, avg.out = TRUE){
   P_S_E_all.sp <- split(as.data.frame(P_S_E_all), sites)
   P_S_E_traitspace_unnorm <- do.call(rbind, lapply(P_S_E_all.sp, function(x) apply(x, 2, mean)))
 
-  return(P_S_E_traitspace_unnorm)
+  return(as.matrix(P_S_E_traitspace_unnorm))
 }
 
 banquo <- function(P_S_E, tr = NULL, intercept=1, mu=-1.5, sigma =0, rho = 0, avg.out = TRUE, out_alpha = FALSE){
