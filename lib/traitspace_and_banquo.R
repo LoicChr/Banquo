@@ -93,7 +93,7 @@ banquo <- function(P_S_E, tr = NULL, intercept=1, mu=-1.5, sigma =0, rho = 0, av
 
   if (is.null(mu) & is.null(sigma) & !is.null(intercept)){
     alphas <- matrix(intercept, nrow = ncol(P_S_E), ncol = ncol(P_S_E))
-    diag(alphas) <- intra
+    diag(alphas) <- 1
   }else{
     if (length(mu) ==1 & length(sigma) == 1 & ncol(tr) == 1 & ncol(P_S_E) == nrow(tr)){
       alphas <- interaction.matrix(scale(tr[,1]), intercept = intercept, mu = mu, sigma = sigma, intra = 1)
@@ -144,21 +144,7 @@ banquo <- function(P_S_E, tr = NULL, intercept=1, mu=-1.5, sigma =0, rho = 0, av
     P_S_E_all_interactions[k,] <- Ns
    }
   dimnames(P_S_E_all_interactions) <- dimnames(P_S_E)
-  if (!avg.out){
-    return(P_S_E_all_interactions)
-  }else{
-    ### Step 2d.1: Monte Carlo integration across trait samples
-    fac <- sapply(strsplit(row.names(P_S_E_all_interactions), '_'), function(x) x[1])
-    P_S_E_all.sp <- split(as.data.frame(P_S_E_all_interactions), as.factor(fac))
-    P_S_E_interactions_unnorm <- do.call(rbind, lapply(P_S_E_all.sp, function(x) apply(x, 2, mean)))
-  
-     if (out_alpha){
-      out <- list(P_S_E_interactions_unnorm, alphas)
-    }else{
-      out <- P_S_E_interactions_unnorm
-    }
-    return(out)
-  }
+  return(P_S_E_all_interactions)
 }
 
 

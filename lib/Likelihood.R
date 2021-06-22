@@ -33,7 +33,7 @@ likelihoodAb <-  function(pars, spxp = F){
   }
   if (traits_biotic == "NoTr"){
     P_S_E_interactions <- banquo(P_S_E_tr2, tr = NULL, avg.out = T, intercept = pars["intercept"],
-                                 mu = NULL, sigma = NULL, intra = 1, std = 'FALSE', out_alpha = spxp)
+                                 mu = NULL, sigma = NULL, out_alpha = spxp)
     pred <- as.matrix(P_S_E_interactions)
     if (spxp){
       pred <- as.matrix(P_S_E_interactions[[1]])
@@ -43,7 +43,7 @@ likelihoodAb <-  function(pars, spxp = F){
   }
   if (traits_biotic %in% c("Height", "SLA")){
     P_S_E_interactions <- banquo(P_S_E_tr2, as.data.frame(trait), avg.out = T, intercept = pars["intercept"],
-                                 mu = pars["mu"], sigma = pars["sigma"], intra = 1, std = std, out_alpha = spxp)
+                                 mu = pars["mu"], sigma = pars["sigma"], out_alpha = spxp)
     pred <- as.matrix(P_S_E_interactions)
     if (spxp){
       pred <- as.matrix(P_S_E_interactions[[1]])
@@ -51,13 +51,13 @@ likelihoodAb <-  function(pars, spxp = F){
       pred <- as.matrix(P_S_E_interactions)
     }
   }
-  if (traits_biotic == "2tr_norm"){
+  if (grepl("2tr", traits_biotic)){
     P_S_E_interactions <- banquo(P_S_E_tr2, tr= cbind(trait1, trait2), avg.out = T,
                                  intercept = pars["intercept"],
                                  mu = c(pars["mu1"], pars["mu2"]),
                                  sigma = c(pars["sigma1"],pars["sigma2"]),
-                                 rho = ifelse(rho_pars, pars["rho"],0),
-                                 intra =1, std = std, out_alpha = spxp)
+                                 rho = ifelse(traits_biotic == "2tr_rho", pars["rho"],0),
+                                 out_alpha = spxp)
     if (spxp){
       pred <- as.matrix(P_S_E_interactions[[1]])
     }else{
@@ -66,7 +66,7 @@ likelihoodAb <-  function(pars, spxp = F){
 
   }
   #Computation of the likelihood
-  loglik <- likelihoodCov(comm.red, pred, phi = pars["phi"], offset = 0.005, cover_class = cover_class)
+  loglik <- likelihoodCov(obs = obs.comm, pred, phi = pars["phi"], offset = 0.005, cover_class = cover_class)
 
   if (spxp){
    out <- list(loglik, P_S_E_interactions)
