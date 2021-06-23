@@ -4,7 +4,7 @@
 #
 ##############
 
-library(mclust)
+
 library(plyr)
 library(ade4)
 
@@ -12,17 +12,11 @@ source("main/data_prep.R")
 source("lib/traitspace_and_banquo.R")
 
 traits = c('sla', "height", "poros")
-x1 <- data$enclos == 0 & data$elev < 0.6
-x2 <- env_p$enclos == 0 & env_p$elev < 0.6
 
 # Threshold
 tr.eff <- sapply(split(KH.data[,c("sla", "height", "poros")], f = as.factor(KH.data$species)), function(x) min(colSums(!is.na(x))))
 
-# Species trait distribution
-pdf_species <- lapply(levels(data$species), function(x){
-  Mclust(na.omit(data[data$species==x  , traits]),warn=TRUE, G = 1)
-})
-names(pdf_species) <- levels(data$species)
+
 
 # Reduction of the dataset
 env_p <- env_p[x2, ]
