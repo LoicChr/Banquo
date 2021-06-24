@@ -45,9 +45,10 @@ sel.quadrats <- row.names(obs.comm2)[rowSums(obs.comm2[,sel.species])/rowSums(ob
 
 obs.comm <- obs.comm[sel.quadrats, sel.species]
 obs.comm <- obs.comm[,colSums(obs.comm) > 0]
-
+obs.comm <- as.matrix(obs.comm/100)
 data <- filter(KH.data, species %in% colnames(obs.comm) & QuadID %in% row.names(obs.comm))
 env_p <- env_p[row.names(obs.comm),]
+pdf_species <- pdf_species[colnames(obs.comm)]
 
 # Average traits
 t.avg <- ddply(data, c("species"), summarise,

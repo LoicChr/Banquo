@@ -29,7 +29,7 @@ traitspace <- function(trait.model, env, PT.Sk, N = 100, avg.out = TRUE){
   pred_multi <- as.data.frame(predict(trait.model, newdata=env, interval="prediction", level=0.95))
   cov_mat <- cov(as.matrix(residuals(trait.model)))
   if (is.null(trait.model$weights)){
-    cov_mat <- cov.wt(as.matrix(residuals(trait.model)))$cov #add weights
+    cov_mat <- cov.wt(as.matrix(residuals(trait.model)))$cov #no weights
     
   }else{
     cov_mat <- cov.wt(as.matrix(residuals(trait.model)), wt = trait.model$weights)$cov #add weights

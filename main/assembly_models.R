@@ -21,7 +21,7 @@ if (!file.exists(result_file)) dir.create(result_file, recursive = T)
 # Data
 # Beginning preparation ##############
 ## Load traitspace object
-load("data/Data_mod.Rdata")
+load("data/traitspace_objs.Rdata")
 cover_class <- read.table("data/cover_class.txt") # Load cover classes
 
 
@@ -47,4 +47,4 @@ bayesianSetup <- createBayesianSetup(likelihoodAb, prior, names = list_params)
 settings <- list(iterations = 3e6, nrChains = 4) #50000 per chains in the one chain triplet
 out <- runMCMC(bayesianSetup = bayesianSetup, settings = settings) # Run the mcmc
 
-save(out, file = paste0(result_file, "/chain1.Rdata")) #Save the results
+save(out, file = paste0(result_file, "/chains.Rdata")) #Save the results
