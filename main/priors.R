@@ -133,3 +133,4 @@ if (abio){
 
 bounds <- rbind(bounds_bio, bounds_ll)
 list_params <- c(list_params_bio, list_params_ll)
+rm(list = c("list_params_bio", "list_params_ll", "bounds_bio", "bounds_ll"))

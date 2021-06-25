@@ -1,4 +1,4 @@
-likelihoodCov <- function(obs, pred, phi,  offset = 0.005, cover_class){
+likelihoodCov <- function(obs, pred, phi,  offset = 0.0005, cover_class){
   # This likelihood function actually calculates the likelihood of the mean covers according to a beta distribution.
 
     obs[obs == 0] <- offset
@@ -66,7 +66,7 @@ likelihoodAb <-  function(pars, spxp = F){
 
   }
   #Computation of the likelihood
-  loglik <- likelihoodCov(obs = obs.comm, pred, phi = pars["phi"], offset = 0.005, cover_class = cover_class)
+  loglik <- likelihoodCov(obs = obs.comm, pred, phi = pars["phi"], offset = 0.0005, cover_class = cover_class)
 
   if (spxp){
    out <- list(loglik, P_S_E_interactions)
