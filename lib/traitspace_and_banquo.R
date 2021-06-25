@@ -144,7 +144,13 @@ banquo <- function(P_S_E, tr = NULL, intercept=1, mu=-1.5, sigma =0, rho = 0, av
     P_S_E_all_interactions[k,] <- Ns
    }
   dimnames(P_S_E_all_interactions) <- dimnames(P_S_E)
-  return(P_S_E_all_interactions)
+  
+  if (out_alpha){
+    out = list(P_S_E_all_interactions, alphas)
+  } else{
+    out = P_S_E_all_interactions
+  }
+  return(out)
 }
 
 

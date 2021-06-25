@@ -47,4 +47,4 @@ bayesianSetup <- createBayesianSetup(likelihoodAb, prior, names = list_params)
 settings <- list(iterations = 3e6, nrChains = 4) #50000 per chains in the one chain triplet
 out <- runMCMC(bayesianSetup = bayesianSetup, settings = settings) # Run the mcmc
 
-save(out, file = paste0(result_file, "/chains.Rdata")) #Save the results
+save(list = ls(), file = paste0(result_file, "/chains.Rdata")) #Save the results
