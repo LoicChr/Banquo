@@ -11,7 +11,7 @@ params <- expand.grid(traits_biotic = c("none","NoTr", "Height", "SLA","2tr", "2
 
 
 id <- as.numeric(commandArgs(trailingOnly = TRUE))
-id = 1
+
 abio = params[id, "abio"]
 traits_biotic = params[id, "traits_biotic"]
 
