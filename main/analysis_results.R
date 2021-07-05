@@ -36,7 +36,7 @@ for (ik in 1:length(chains.to.analyze)){
   }else{
     diff = NULL
   }
-  
+
   ### Compute spxp matrix, likelihood matrix at the median posterior
   pred.med = likelihoodAb(pars, spxp = T)
   if (traits_biotic == "none"){
@@ -69,14 +69,14 @@ for (ik in 1:length(chains.to.analyze)){
   div_distri <- as.data.frame(div_distri)
   roc1 <- roc(as.numeric(obs.comm > 0),as.numeric(  spxp.pred ))
   
-  out_results[[ik]] <- list(DIC =  dic.val , conv = conv.val, diff_tr = diff, alpha = int, alpha_beta = div_distri, ll = median(dis[,"Llikelihood"]), spxp = spxp.pred, roc = roc1, Nobs = prod(dim(obs.comm)), ll_025 = quantile(dis[,"Llikelihood"], 0.025), ll_975 = quantile(dis[,"Llikelihood"], 0.975))
+  out_results[[ik]] <- list(DIC =  dic.val , conv = conv.val, diff_tr = diff, alpha = int, alpha_beta = div_distri, ll = median(dis[,"Llikelihood"]), spxp = spxp.pred, roc = roc1, Nobs = prod(dim(obs.comm)), ll_025 = quantile(dis[,"Llikelihood"], 0.025), ll_975 = quantile(dis[,"Llikelihood"], 0.975), int = ifelse(any(colnames(dis) == "intercept"),median(dis[,"intercept"]),NA))
   rm(out)
   print(ik)
 }
 names(out_results) = chains.to.analyze
 
 
-dat <- data.frame(names(out_results), conv = map_dbl(out_results, 'conv'), DIC = map_dbl(out_results, "DIC"))
+dat <- data.frame(names(out_results), conv = map_dbl(out_results, 'conv'), DIC = map_dbl(out_results, "DIC"), int= map_dbl(out_results, "int") )
 lls <- sapply(map(out_res, 'll'), sum)
 Nobs <- map_dbl(out_res, 'Nobs')
 ll_H0 <- lls[which(grepl("abio_FALSE/none", names(out_res)))]
