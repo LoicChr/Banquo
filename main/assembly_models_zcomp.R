@@ -11,7 +11,7 @@ params <- expand.grid(traits_biotic = c("none","NoTr", "Height", "SLA","2tr", "2
 
 
 id <- as.numeric(commandArgs(trailingOnly = TRUE))
-
+id = 6
 abio = params[id, "abio"]
 traits_biotic = params[id, "traits_biotic"]
 
@@ -43,15 +43,15 @@ source("lib/Likelihood.R")
 load(paste0(result_file, "/chains.Rdata"))
 for (i in 1:10){
   dis <- getSample(out)
-  dis <- getSample(out, start = nrow(dis)/(3*4)-5e3)
+  dis <- getSample(out, start = nrow(dis)/(3*4)-1e3, thin = 50)
   newZ <- do.call(cbind, lapply(1:ncol(dis), function(i){
     rtnorm(500, mean(dis[,i]), sd(dis[,i]), a = bounds[i,1], b = bounds[i,2])
   }))
-  start = sapply(1:ncol(dis), function(i){
-    rtnorm(1, mean(dis[,i]), sd(dis[,i]), a = bounds[i,1], b = bounds[i,2])
-  })
+  start = do.call(cbind, lapply(1:ncol(dis), function(i){
+    rtnorm(12, mean(dis[,i]), sd(dis[,i]), a = bounds[i,1], b = bounds[i,2])
+  }))
   # # settings for the sampler
-  settings <- list(iterations = 1e4, nrChains = 4, Z = newZ, startValue = start) #50000 per chains in the one chain triplet
+  settings <- list(iterations = 3e2, nrChains = 4, Z = newZ, startValue = start) #50000 per chains in the one chain triplet
   out <- runMCMC(out, settings = settings) # Run the mcmc
 }
 
