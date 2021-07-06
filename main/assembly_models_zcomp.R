@@ -47,8 +47,11 @@ for (i in 1:10){
   newZ <- do.call(cbind, lapply(1:ncol(dis), function(i){
     rtnorm(500, mean(dis[,i]), sd(dis[,i]), a = bounds[i,1], b = bounds[i,2])
   }))
+  start = sapply(1:ncol(dis), function(i){
+    rtnorm(1, mean(dis[,i]), sd(dis[,i]), a = bounds[i,1], b = bounds[i,2])
+  })
   # # settings for the sampler
-  settings <- list(iterations = 1e4, nrChains = 4, Z = newZ) #50000 per chains in the one chain triplet
+  settings <- list(iterations = 1e4, nrChains = 4, Z = newZ, startValue = start) #50000 per chains in the one chain triplet
   out <- runMCMC(out, settings = settings) # Run the mcmc
 }
 
