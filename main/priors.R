@@ -1,7 +1,7 @@
 library(extraDistr)
 # Hyperparameters for the alpha interaction matrix priors
-hyperparameters <- list(intercept_median = 2,
-                        intercept_sd = 2.3,
+hyperparameters <- list(intercept_median = ifelse(!grepl("2tr", traits_biotic), 2,5),
+                        intercept_sd = ifelse(!grepl("2tr", traits_biotic), 2.3,3),
                         
                         mu_mean = 0,
                         mu_sd = 1.8,
