@@ -1,0 +1,13 @@
+Assembly_model;bio;conv;DIC;pseudo_char;AUC
+Abiotic & Biotic model;SLA;1,002;2291;[0.182, 0.196];0,773
+Abiotic & Biotic model;Height + SLA (with int.);1,004;2295;[0.177, 0.194];0,773
+Abiotic & Biotic model;Height + SLA (no int.);1,018;2308,8;[0.171, 0.188];0,764
+Abiotic & Biotic model;Height;1;2371,8;[0.115, 0.13];0,689
+Abiotic model;No interactions;1;2413,8;[0.075, 0.085];0,671
+Abiotic & Biotic model;No traits;1,001;2412;[0.071, 0.082];0,669
+Biotic model;Height + SLA (with int.);1,811;2380;[0.056, 0.088];0,676
+Biotic model;Height + SLA (no int.);1,021;2415,2;[0.038, 0.067];0,657
+Biotic model;SLA;1,006;2420,7;[0.03, 0.043];0,631
+Biotic model;Height;1,025;2456;[0.027, 0.042];0,574
+Biotic model;No traits;1;2491,8;[0, 0.001];0,448
+Null model;No interactions;1;2491,8;[0, 0.001];0,5

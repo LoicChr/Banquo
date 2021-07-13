@@ -1,14 +1,12 @@
  library(tidyverse)
  library(BayesianTools)
-# library(ggplot2)
  library(pROC)
  library(ggpubr)
  library(mgcv)
-# library(rcartocolor)
-# library(colorBlindness)
+
 
 source("lib/abgFunctions.R")
-chains.to.analyze <- list.files("results", full.names = T, recursive = T, pattern = "chain")
+chains.to.analyze <- list.files("results", full.names = T, recursive = T, pattern = "output")
 
 species <- c(AGRcap = "Agrostis capillaris", AMPflu = "Amphibromus fluitans", ANTodo = "Anthoxanthum odoratum", CARgau = "Carex gaudichaudiana", ELAacu = "Eleocharis acuta", ELApus =  "Eleocharis pusilla", EPIang = "Epilobium angustum", GALper = "Galium perpusillum", JUNart = "Juncus articulatus", LACstr = "Lachnagrostis striata", LAClya = "Lachnagrostis lyallii", LILrut = "Lilaeopsis ruthiana", LOBper = "Lobelia perpusilla", PARcan = "Parahebe canescens", PILoff = "Pilosella officinarum", PILpil = "Pilosella piloselloides")
 
@@ -18,17 +16,7 @@ out_results<- list()
 for (ik in 1:length(chains.to.analyze)){
   chain = chains.to.analyze[ik]
   b=load(chain)
-  source("./lib/traitspace_and_banquo.R")
-  ### Isolate posterior
-  nstep <- nrow(getSample(out, start = 0, parametersOnly = F, thin = 0))/(4*3)
-  thres <- nstep - 2e5
-  dis <- getSample(out, parametersOnly = F, start = thres, thin = 50)
-  
   pars <- apply(dis, 2, median)
-  
-  ### General performance stats
-  dic.val <- DIC(out, start = thres)$DIC
-  conv.val <- gelmanDiagnostics(out, start = thres)$mpsrf
   
   ### Trait differences
   if (grepl("Height|SLA", chain)){

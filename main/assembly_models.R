@@ -47,4 +47,13 @@ bayesianSetup <- createBayesianSetup(likelihoodAb, prior, names = list_params)
 settings <- list(iterations = 5e5, nrChains = 4) #50000 per chains in the one chain triplet
 out <- runMCMC(bayesianSetup = bayesianSetup, settings = settings) # Run the mcmc
 
-save(list = ls(), file = paste0(result_file, "/chains_b.Rdata")) #Save the results
+# Compute posterior and basic statistics
+nstep <- nrow(getSample(out, start = 0, parametersOnly = F, thin = 0))/(4*3)
+thres <- nstep - 2e5
+dis <- getSample(out, parametersOnly = F, start = thres, thin = 50)
+
+dic.val <- DIC(out, start = thres)$DIC
+conv.val <- gelmanDiagnostics(out, start = thres)$mpsrf
+rm(out)
+
+save(list = ls(), file = paste0(result_file, "/output.Rdata")) #Save the results
