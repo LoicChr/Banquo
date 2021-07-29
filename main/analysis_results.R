@@ -128,7 +128,8 @@ Fig1 <- ggplot(data_long, aes(x = DAYSUB, y = resp)) +
   geom_ribbon( aes(ymin = lwr, ymax = upr, fill = "#CC6677"), alpha = 0.5) +
   guides(fill= FALSE) +
   facet_wrap(~trait, scales = "free",labeller=as_labeller(lbs, label_parsed))
-ggsave("results/Fig1.jpg", Fig1, width = 8, height = 3)
+ggsave("results/Fig1.eps", Fig1, width = 110, height = 41.25, units = "mm", scale = 2)
+
 ######
 
 ###### Figure 2 ###############
@@ -178,7 +179,8 @@ interaction_plots <- lapply(sel.models,function(i){
 })
 names(interaction_plots) <- map_chr(strsplit(names(out_results)[sel.models],"/"),3)
 Fig2 <- ggarrange(plotlist = interaction_plots[c("NoTr", "Height", "SLA", "2tr", "2tr_rho")], nrow = 3, ncol = 2, common.legend = T, legend = 'right', labels = LETTERS[1:length(interaction_plots)]) 
-ggsave("results/Fig2.jpg", Fig2, width = 9.26, height = 10)
+
+ggsave("results/Fig2.eps", Fig2, width = 110, height = 110, units = "mm", scale = 2)
 #######
 
 ####### Figure 3 ################
@@ -215,7 +217,7 @@ Fig3 <- ggplot(dat, aes(x = DAYSUB, y = Cover*100)) +
   scale_color_manual(values=c("#000000", "#CC6677", "#117733")) +
   facet_wrap(~Species, scales = 'free') + scale_y_continuous(limits =c(0,80),breaks = c(0,5,20,50,80)) +  coord_trans(y = "sqrt") +
   labs(x = "Days submerged per year", y = "Species cover (%)") + guides(linetype = FALSE) 
-ggsave("results/Fig3.jpg", Fig3, width = 8, height = 8)
+ggsave("results/Fig3.jpg", Fig3, width = 173, height = 173, units = "mm", scale = 2)
 ################
 
 #### Supplementary Figure 4 ############
