@@ -2,10 +2,9 @@
 library(BayesianTools)
 library(foreach)
 library(doParallel)
-
-
+library(DEoptim)
 # Retrieve model characteristics
-params <- expand.grid(traits_biotic = c("none","noTr", "Height","SLA", "poros", "2tr_HS","2tr_HP","2tr_PS","3tr"),
+params <- expand.grid(traits_biotic = c("none","NoTr", "Height","SLA", "poros", "2tr_HS","2tr_HP","2tr_PS","3tr"),
                       abio = c(TRUE, FALSE), stringsAsFactors = F)
 
 
@@ -18,7 +17,7 @@ wrapper_model <- function(id){
   abio = params[id, "abio"]
   traits_biotic = params[id, "traits_biotic"]
   
-  result_file = paste0("results_noPCA/abio_", abio,"/",traits_biotic)
+  result_file = paste0("results/abio_", abio,"/",traits_biotic)
   if (!file.exists(result_file)) dir.create(result_file, recursive = T)
 
   # Data
