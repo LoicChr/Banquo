@@ -1,57 +1,62 @@
 ###############################################################################
 #                                                                             #
-#   Function to generate the interaction matrix                               #
+#   Functions to generate the interaction matrix                               #
 #   From the article: Integrating traits, competition and abiotic filtering   #
 #                 improves biodiversity predictions                           #
-#   Authors: Loïc Chalmandrier, Daniel B. Stouffer, Daniel C. Laughlin        #
+#   Authors: Loïc Chalmandrier*, Daniel B. Stouffer, Daniel C. Laughlin       #
 #   *contact                                                                  #
 ###############################################################################
 
-interaction.matrix <- function(trait, intercept=1, mu=0, sigma=0.3, intra=1, std = T){
-  # Arguments
-  ## trait: he single trait across species.
-  ## intercept: the multiplying coefficients on interaction coefficients.
-  ## mu, sigma: the peak point and the width of the bell-shaped curve between trait difference and pairwise interaction coefficients
-  ## intra: the additional coefficient for intraspecific coefficients.
+# rho_gen calculates a correlation matrix based on angle parameters (thetas) that determines the Cholesky factorisation of the final correlation matrix.
+# It was coded directly from Forrester et Zhang 2020 (Journal of Multivariate Analysis)
+
+# Interaction_matrix calculates the pairwise competition matrix as a function of the intercept, mu, sigma and rhos parameters. Intra specifies the intraspecific interaction coefficients.
+rho_gen <- function(thetas){
+  N <- (1+sqrt(1+8*length(thetas)))/2
+  if (any(thetas  < 0 | thetas > pi)) stop("thetas must be between 0 and pi")
+  if (!all.equal(N, as.integer(N)))  stop("number of theta parameters is wrong")
   
-  A <- matrix(0, length(trait),length(trait))
-  for(ii in 1:nrow(A)){
-    for(jj in 1:nrow(A)){
-      A[ii,jj] <- -0.5*((trait[ii] - trait[jj] - mu)/sigma)^2
+  theta_mat <- matrix(0, ncol = N, nrow = N)
+  theta_mat[lower.tri(theta_mat, diag = F)] <- thetas
+  
+  B_mat <- matrix(0, nrow = nrow(theta_mat), ncol = ncol(theta_mat))
+  for (i in 1:nrow(B_mat)){
+    for (j in 1:i){
+      if (j == 1){
+        B_mat[i,j] <- cos(theta_mat[i,j])
+      } else if (j >= 2 & j <= (i -1)){
+        B_mat[i,j] <- cos(theta_mat[i,j])*prod(sin(theta_mat[i,1:(j-1)]))
+      } else{
+        B_mat[i,j] <- prod(sin(theta_mat[i,1:(j-1)]))
+      }
+      
     }
   }
-  if (std){
-    A <- intercept * exp(A)/(sqrt(2*pi)*sigma)
-  }else{
-    A <- intercept * exp(A)
-  }
- 
-  diag(A) <- intra 
-  return(A)
+  rho_mat <- B_mat %*% t(B_mat)
+  return(rho_mat )
 }
 
-interaction.matrix_bi <- function(trait1, trait2, intercept=1, mu1=0, sigma1=0.3, mu2 = 0, sigma2 = 0.3, rho = 0, intra= 1, std = T){
-  # Arguments
-  ## trait1, trait2: the two traits across species.
-  ## intercept: the multiplying coefficients on interaction coefficients.
-  ## mu1, mu2, sigma1, sigma2, rho: the peak point, the width of the bell-shaped curve (in two dimensions) and the interaction coefficients among the two dimensions between trait difference and pairwise interaction coefficients
-  ## intra: the additional coefficient for intraspecific coefficients.
-  
-   if (length(trait1) != length(trait2)) stop("trait1 and trait2 do not match")
-  A <- matrix(0, length(trait1), length(trait1))
-  for(ii in 1:nrow(A)){
-    for(jj in 1:nrow(A)){
-      A[ii,jj] <- - (1/(2*(1-rho^2)))*(((trait1[ii] - trait1[jj] - mu1)/sigma1)^2 
-                  + ((trait2[ii] - trait2[jj] - mu2)/sigma2)^2 
-                  - 2*rho*((trait1[ii] - trait1[jj] - mu1)*(trait2[ii] - trait2[jj] - mu2)/(sigma2*sigma1))) 
+interaction_matrix <- function(tr, intercept, mu, sigma, rho = NULL, intra = 1){
+  if (is.null(rho)){
+    rho_mat <- diag(ncol(tr))
+  }else{
+    rho_mat <- rho_gen(acos(rho))
+  }
+  if (ncol(tr) == 1){
+    inv_sigma_mat <- as.matrix(1/sigma)
+  }else{
+    inv_sigma_mat <- solve(diag(sigma) %*% rho_mat %*% diag(sigma))  
+  }
+
+  aij = matrix(NA, nrow(tr), nrow(tr))
+  for (i in 1:nrow(tr)){
+    for (j in 1:nrow(tr)){
+      dt <- as.matrix(tr[i,]- tr[j,])
+      aij[i,j] = exp(-0.5* t(dt -mu) %*% inv_sigma_mat %*% (dt -mu))
     }
   }
-  # take the exponential
-  if (std){
-    A <- intercept * exp(A)/(2*pi*sigma1*sigma2*sqrt(1-rho^2))
-  }else{
-    A <- intercept * exp(A)
-  }
-  diag(A) <- intra
-  return(A)
+  aij = intercept*aij
+  diag(aij) <- intra
+  
+  return(aij)
 }
