@@ -1,25 +1,26 @@
 likelihoodCov <- function(obs, pred, phi,  offset = 0.0005, cover_class){
   # This likelihood function actually calculates the likelihood of the mean covers according to a beta distribution.
-
-    obs[obs == 0] <- offset
-    mean_cover <- as.numeric(pred)
-    mean_cover[mean_cover < offset] <- offset
-    alpha = mean_cover * phi #Conversion in alpha/beta shape parameters
-    beta = (1-mean_cover) * phi
-    j <- match(obs, cover_class$cover_class)
-    
-    prob_cat <- log(pbeta(cover_class$maxCov[j], alpha, beta) - pbeta(cover_class$minCov[j], alpha, beta))
-    logLik <- matrix(prob_cat, nrow = nrow(obs), ncol = ncol(obs), byrow = F)
-    
-
+  
+  obs[obs == 0] <- offset
+  mean_cover <- as.numeric(pred)
+  mean_cover[mean_cover < offset] <- offset
+  alpha = mean_cover * phi #Conversion in alpha/beta shape parameters
+  beta = (1-mean_cover) * phi
+  j <- match(obs, cover_class$cover_class)
+  
+  prob_cat <- log(pbeta(cover_class$maxCov[j], alpha, beta) - pbeta(cover_class$minCov[j], alpha, beta))
+  logLik <- matrix(prob_cat, nrow = nrow(obs), ncol = ncol(obs), byrow = F)
+  
+  
   return(sum(logLik))
 }
 
 
 likelihoodAb <-  function(pars, spxp = F){
   names(pars) <- list_params
-  # This likelihood function is used to choose the option to calculate species abundance across sites
-
+  # This likelihood function uses the two model markers (abio (logical), traits_biotic (character)) to choose how calculate species abundance across plots.
+  # The option spxp is used in a non-MCMC computation context to output the predicted species covers.
+  
   # Transformation to carrying capacities
   if (abio){
     P_S_E_tr2 <- pars["a2"]*(P_S_E_tr/max(P_S_E_tr))^pars["c2"]
@@ -30,49 +31,35 @@ likelihoodAb <-  function(pars, spxp = F){
   # Biotic interaction model
   if (traits_biotic == "none"){
     pred <- P_S_E_interactions <- P_S_E_tr2
-  }
-  if (traits_biotic == "NoTr"){
-    P_S_E_interactions <- banquo(P_S_E_tr2, tr = NULL, avg.out = T, intercept = pars["intercept"],
+  }  else if (traits_biotic == "NoTr"){
+    P_S_E_interactions <- banquo(P_S_E_tr2, tr = NULL, intercept = pars["intercept"],
                                  mu = NULL, sigma = NULL, out_alpha = spxp)
-    pred <- as.matrix(P_S_E_interactions)
     if (spxp){
       pred <- as.matrix(P_S_E_interactions[[1]])
     }else{
       pred <- as.matrix(P_S_E_interactions)
     }
-  }
-  if (traits_biotic %in% c("Height", "SLA")){
-    P_S_E_interactions <- banquo(P_S_E_tr2, as.data.frame(trait), avg.out = T, intercept = pars["intercept"],
-                                 mu = pars["mu"], sigma = pars["sigma"], out_alpha = spxp)
-    pred <- as.matrix(P_S_E_interactions)
-    if (spxp){
-      pred <- as.matrix(P_S_E_interactions[[1]])
-    }else{
-      pred <- as.matrix(P_S_E_interactions)
-    }
-  }
-  if (grepl("2tr", traits_biotic)){
-    P_S_E_interactions <- banquo(P_S_E_tr2, tr= cbind(trait1, trait2), avg.out = T,
+  } else {
+    P_S_E_interactions <- banquo(P_S_E = P_S_E_tr2, tr= tr, 
                                  intercept = pars["intercept"],
-                                 mu = c(pars["mu1"], pars["mu2"]),
-                                 sigma = c(pars["sigma1"],pars["sigma2"]),
-                                 rho = ifelse(traits_biotic == "2tr_rho", pars["rho"],0),
-                                 out_alpha = spxp)
+                                 mu = pars[grep("mu", list_params)],
+                                 sigma = pars[grep("sigma", list_params)],
+                                 rho = pars[grep("rho", list_params)],
+                                 out_alpha = spxp, intra = 1)
     if (spxp){
       pred <- as.matrix(P_S_E_interactions[[1]])
     }else{
       pred <- as.matrix(P_S_E_interactions)
     }
-
+    
   }
   #Computation of the likelihood
   loglik <- likelihoodCov(obs = obs.comm, pred, phi = pars["phi"], offset = 0.0005, cover_class = cover_class)
-
   if (spxp){
-   out <- list(loglik, P_S_E_interactions)
+    out <- list(loglik, P_S_E_interactions)
   }else{
     out <- loglik
   }
-
+  
   return(out)
 }

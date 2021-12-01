@@ -52,9 +52,9 @@ pdf_species <- pdf_species[colnames(obs.comm)]
 
 # Average traits
 t.avg <- ddply(data, c("species"), summarise,
-               maxht  = quantile(height,0.975), sla = median(sla, na.rm = T))
+               maxht  = quantile(height,0.975), sla = median(sla, na.rm = T), poros = median(plogis(poros),na.rm = T))
 
-dudi.tr <- dudi.pca(t.avg[,c("maxht", "sla")], nf = 2, scannf = F)
-t.avg$Axis1 <- dudi.tr$li[,1]
-t.avg$Axis2 <- dudi.tr$li[,2]
+# dudi.tr <- dudi.pca(t.avg[,c("maxht", "sla")], nf = 2, scannf = F)
+# t.avg$Axis1 <- dudi.tr$li[,1]
+# t.avg$Axis2 <- dudi.tr$li[,2]
 save(list = c("t.avg", "pdf_species", "env_p", "obs.comm", "data"), file = "data/data_ready.Rdata")
