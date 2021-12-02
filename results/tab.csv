@@ -2,18 +2,18 @@ Model;Assembly_model;bio;conv;DIC;pseudoR2;pseudo_char;AUC
 18;Abiotic & Biotic model;Height + SLA + Porosity;1,004;2286,1;0.217;[0.204, 0.225];0.787
 17;Abiotic & Biotic model;Porosity + SLA;1,007;2303,3;0.197;[0.186, 0.203];0.776
 14;Abiotic & Biotic model;SLA;1,009;2300,1;0.196;[0.186, 0.201];0.774
-15;Abiotic & Biotic model;Height + Porosity;1,012;2304,6;0.193;[0.183, 0.199];0.771
+15;Abiotic & Biotic model;Height + Porosity;1,012;2304,6;0.193;[0.183, 0.198];0.771
 16;Abiotic & Biotic model;Height + SLA;1,002;2334,2;0.167;[0.156, 0.174];0.744
 13;Abiotic & Biotic model;Porosity;1,001;2380,3;0.120;[0.110, 0.124];0.706
 12;Abiotic & Biotic model;Height;1,01;2389,7;0.110;[0.101, 0.115];0.680
-2;Abiotic model;No interactions;1;2405;0.091;[0.084, 0.094];0.678
+2;Abiotic model;No interactions;1;2405;0.091;[0.085, 0.094];0.678
 11;Abiotic & Biotic model;No traits;1;2407,9;0.089;[0.082, 0.092];0.678
 10;Biotic model;Height + SLA + Porosity;4,569;2452,2;0.074;[0.056, 0.087];0.658
 7;Biotic model;Height + Porosity;1,062;2450,4;0.067;[0.046, 0.074];0.681
-8;Biotic model;Height + SLA;1,993;2447,8;0.065;[0.047, 0.072];0.637
+8;Biotic model;Height + SLA;1,993;2447,8;0.065;[0.048, 0.072];0.637
 9;Biotic model;Porosity + SLA;1,793;2451,7;0.065;[0.047, 0.073];0.637
 6;Biotic model;SLA;1,001;2457,4;0.039;[0.031, 0.043];0.633
 5;Biotic model;Porosity;1,004;2464,5;0.035;[0.025, 0.040];0.562
 4;Biotic model;Height;1,003;2490,4;0.004;[0.000, 0.007];0.572
 1;Null model;No interactions;1;2491,7;0.000;[0.000, 0.001];0.500
-3;Biotic model;No traits;1;2491,7;0.000;[0.000, 0.001];0.487
+3;Biotic model;No traits;1;2491,7;0.000;[0.000, 0.001];0.526

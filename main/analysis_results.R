@@ -358,10 +358,10 @@ ggsave("results/FigS6.jpg", FigS6, width = 6, height = 6, bg = "white")
 
 ## Generation of Supplementary Figure for the posterior distributions of each assembly models######
 library(extraDistr)
-names_params <- c("a","b", expression(phi), 'log(C)', 
-                  expression(mu[1]), expression(paste('log(',sigma[1],')')), 
-                  expression(mu[2]), expression(paste('log(',sigma[2],')')), 
-                  expression(mu[3]), expression(paste('log(',sigma[3],')')), 
+names_params <- c("a","b", expression(phi), 'C', 
+                  expression(mu[1]), expression(sigma[1]), 
+                  expression(mu[2]), expression(sigma[2]), 
+                  expression(mu[3]), expression(sigma[3]), 
                   expression(rho[1]), expression(rho[2]), expression(rho[3]))
 all.params <- c("a2", "c2", "phi", "intercept","mu1","sigma1","mu2","sigma2", "mu3", "sigma3", "rho1", "rho2", "rho3")
 names(all.params) <- names_params
@@ -372,7 +372,7 @@ for (ip in 1:length(chains.to.analyze)){
   b=load(chain)
   source("main/priors.R")
   ### Isolate posterior
-  post.dis <- as.data.frame(dis[sample(1:nrow(post.dis),2e4),colnames(dis) %in% all.params])
+  post.dis <- as.data.frame(dis[,colnames(dis) %in% all.params])
   colnames(post.dis) <- list_params
   post.dis$distri <- 'Posterior'
   prior.dis <- data.frame(sampler(nrow(post.dis)))
@@ -385,9 +385,7 @@ for (ip in 1:length(chains.to.analyze)){
   bounds$param = factor(row.names(bounds), levels=all.params[all.params %in% list_params])
   bounds<-bounds %>% mutate(param = fct_recode(param, !!!all.params[all.params %in% all_of(list_params)]))
   distris <- rbind(prior.dis, post.dis)
-  distris[,grep('intercept|sigma', colnames(distris))] <- log(distris[,grep('intercept|sigma', colnames(distris))])
-  bounds[grep('intercept|sigma', row.names(bounds)),c('lower', 'upper')] <- log(  bounds[grep('intercept|sigma', row.names(bounds)),c('lower', 'upper')] )
-  distris_long <- distris %>% pivot_longer(cols = list_params, names_to = "param") %>% 
+   distris_long <- distris %>% pivot_longer(cols = list_params, names_to = "param") %>% 
     mutate(param = fct_recode(param, !!!all.params[all.params %in% all_of(list_params)])) %>% 
     mutate(param = factor(param, levels = names(all.params)[all.params %in% list_params]))
   levels(distris_long$param) <- replace(levels(distris_long$param), levels(distris_long$param) == "rho[1]", expression(rho[21]))
