@@ -1,6 +1,6 @@
 # Banquo
 
-This code is associated with the article: 'Integrating traits, competition and abiotic filtering improves biodiversity predictions' by Loïc Chalmandrier\*, Daniel B. Stouffer, Adam S. T. Purcell, William G. Lee, Andrew J. Tanentzap and Daniel C. Laughlin
+This code is associated with the article: 'Predictions of biodiversity are improved by integrating trait-based competition with abiotic filtering' by Loïc Chalmandrier\*, Daniel B. Stouffer, Adam S. T. Purcell, William G. Lee, Andrew J. Tanentzap and Daniel C. Laughlin
  
 \* main code developper and contact. (loic.chalmandrier@biologie.uni-regensburg.de)
 
