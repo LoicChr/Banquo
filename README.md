@@ -10,12 +10,12 @@ The code models species abundances using functional traits, community data and e
 System requirements
 R 4.1.0
 
-The repository contains the following files and folders.
+The repository contains the following files and folders.\\
 ./data/community.cover
-./lib/abgFunctions.R: functions to calculate community alpha and beta diversity
-     /interactionMatrix.R: functions to calculate the pairwise interaction matrix
-     /Likelihood.R: functions to calculate the likelihood of the Banquo models
-     /traitspace_and_banquo.R: functions to compute Traitspace and to compute Banquo
+./lib/abgFunctions.R: functions to calculate community alpha and beta diversity\\
+     /interactionMatrix.R: functions to calculate the pairwise interaction matrix\\
+     /Likelihood.R: functions to calculate the likelihood of the Banquo models\\
+     /traitspace_and_banquo.R: functions to compute Traitspace and to compute Banquo\\
      
 ./main/analysis_results.R: script using the final output to produce the table and figures of the article
       /assembly_models.R: Main script. It uses the output of traitspace_gen.R and compute the different Banquo models. 
