@@ -17,7 +17,11 @@ BayesianTools, corpcor, DEoptim, extraDistr, ggpubr, mclust, mgcv, plyr, pROC, p
 
 ## Repository content
 
-- ./data/community.cover
+<p> './data/community.cover.23sp.csv': community matrix - site by species matrix <br>
+'data/cover_class.txt': contains the names and the minimum and maximum cover associated to each cover class <br>
+'data/data_ready.Rdata': contains the formatted data (output of the script data_prep.R) <br>
+'kettleholedata.23sp.csv': contains the functional trait data in each site and for each species <br>
+'traitspace_objs.Rdata': contains the output of the script traitspace_gen.R </p>
 <p>  './lib/abgFunctions.R': functions to calculate community alpha and beta diversity <br>
 './lib/interactionMatrix.R': functions to calculate the pairwise interaction matrix <br>
 './lib/Likelihood.R': functions to calculate the likelihood of the Banquo models<br> 

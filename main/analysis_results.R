@@ -1,24 +1,34 @@
- library(tidyverse)
+################################################################
+#                                                              #
+#                   Figures and tables                         #
+#                                                              #
+################################################################
+
+# Libraries
+library(tidyverse)
  library(BayesianTools)
  library(pROC)
  library(ggpubr)
  library(mgcv)
 library(purrr)
 
+# Load useful functions
 source("lib/abgFunctions.R")
  source("lib/traitspace_and_banquo.R")
  source("lib/interactionMatrix.R")
  source("lib/Likelihood.R")
  
+# Load useful data
 load("data/data_ready.Rdata")
 load("data/traitspace_objs.Rdata")
 cover_class <- read.table("data/cover_class.txt")
 chains.to.analyze <- c(list.files("results", full.names = T, recursive = T, pattern = "posterior_objs.Rdata"))
 
+# Complete species names
 species <- c(AGRcap = "Agrostis capillaris", AMPflu = "Amphibromus fluitans", ANTodo = "Anthoxanthum odoratum", CARgau = "Carex gaudichaudiana", ELAacu = "Eleocharis acuta", ELApus =  "Eleocharis pusilla", EPIang = "Epilobium angustum", GALper = "Galium perpusillum", JUNart = "Juncus articulatus", LACstr = "Lachnagrostis striata", LAClya = "Lachnagrostis lyallii", LILrut = "Lilaeopsis ruthiana", LOBper = "Lobelia perpusilla", PARcan = "Parahebe canescens", PILoff = "Pilosella officinarum", PILpil = "Pilosella piloselloides")
 
 
-###
+### Extract or compute the useful features from the posterior distributions
 out_results<- list()
 for (ik in 1:length(chains.to.analyze)){
   chain = chains.to.analyze[ik]
@@ -26,7 +36,7 @@ for (ik in 1:length(chains.to.analyze)){
 
   pars <- apply(dis, 2, median)
   
-  ### Compute spxp matrix, likelihood matrix at the median posterior
+  ### Compute the predicted site by species matrix, likelihood matrix at the median posterior
   pred.med = likelihoodAb(pars, spxp = T)
   if (traits_biotic == "none"){
     spxp.pred =  pred.med[[2]]

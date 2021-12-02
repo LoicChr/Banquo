@@ -16,7 +16,7 @@
 
 # The script depends on the two model markers : 
 ## abio (logical) indicates if the abiotic model is modeled (carrying capacities are not constant across species and plots)
-## trait_biotics : indicates which traits are used to calibrate the interaction matrix
+## traits_biotic : indicates which traits are used to calibrate the interaction matrix
 library(extraDistr)
 library(dplyr)
 

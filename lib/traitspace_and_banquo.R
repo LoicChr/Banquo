@@ -3,8 +3,7 @@
 #   Banquo and Traitspace functions                                           #
 #   From the article: Predictions of biodiversity are improved by             #
 #    integrating trait-based competition with abiotic filtering               #
-#   Authors: Loïc Chalmandrier*, Daniel B. Stouffer, Daniel C. Laughlin       #
-#   *contact                                                                  #
+#                                                                             #
 ###############################################################################
 
 
