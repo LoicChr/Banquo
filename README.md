@@ -5,13 +5,14 @@ This code is associated with the article: 'Integrating traits, competition and a
  *code developpers
 
 ## Overview  
-The code models species abundances using functional traits, community data and environmental data. It assumes that species abundances are constrained by abiotic filtering (Traitspace model) and then competition (Banquo model). First species carrying capacities are modeled through the Traitspace model (using a traits-environment multivariate linear model) and then pairwise competitive interaction are calibrated using the Banquo model through a nloptr algorithm.
+The code models species abundances using functional traits, community data and environmental data. It assumes that species abundances are constrained by abiotic filtering (Traitspace model) and then competition (Banquo model). First species carrying capacities are modeled through the Traitspace model (using a trait-environment multivariate linear model) and then pairwise competitive interaction are calibrated using the Banquo model through a nloptr algorithm.
 
 
 ### System requirements
 R 4.1.0
 
 ### Libraries
+BayesianTools, corpcor, DEoptim, extraDistr, ggpubr, mclust, mgcv, plyr, pROC, purrr, tidyverse
 
 
 ## Repository content
@@ -34,7 +35,8 @@ R 4.1.0
 './results/post_models/post_Model_\*.jpg': graphics of the posterior distribution of each assembly model.</p>
          
 ## How to use the repository
-1. run data_prep.R: from the raw data, this script prepares the 'data/data_ready.Rdata' object
-2. run traitspace_gen.R: this will use the content of 'data/data_ready.Rdata' to compute Traitspace and create 'data/traitspace_objs.Rdata' 
-3. run assembly_models.R: this script will run the Banquo models (more details of its functioning in the header of the script). after the models are run, the script saves the output in the 'posterior_objs.Rdata' objects
-4. run analysis_results.R: this script uses the posterior_objs.Rdata, the function in ./lib/ and the objects in ./data/ to create the figures and table from the article and the supplementary materials.
+1. set the working directory to the root of the repository.
+2. run data_prep.R: from the raw data, this script prepares the 'data/data_ready.Rdata' object
+3. run traitspace_gen.R: this will use the content of 'data/data_ready.Rdata' to compute Traitspace and create 'data/traitspace_objs.Rdata' 
+4. run assembly_models.R: this script will run the Banquo models (more details of its functioning in the header of the script). after the models are run, the script saves the output in the 'posterior_objs.Rdata' objects
+5. run analysis_results.R: this script uses the posterior_objs.Rdata, the function in ./lib/ and the objects in ./data/ to create the figures and table from the article and the supplementary materials.

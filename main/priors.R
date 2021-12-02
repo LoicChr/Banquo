@@ -19,6 +19,7 @@
 ## trait_biotics : indicates which traits are used to calibrate the interaction matrix
 library(extraDistr)
 library(dplyr)
+
 # Hyperparameters for the alpha interaction matrix priors
 hyperparameters <- list(intercept_median = 0.5,
                         intercept_sd = 0.8,

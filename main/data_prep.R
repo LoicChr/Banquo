@@ -1,11 +1,11 @@
-##############
-#
-#     New traitspace objects - data preparation
-#
-##############
+########################################################################
+#                                                                      #
+#     data preparation: from the raw data to data/data_ready.Rdata     #
+#                                                                      #
+########################################################################
+
 library(tidyverse)
 library(plyr)
-library(ade4)
 library(mclust)
 
 obs.comm <- read.csv("data/community.cover.23sp.csv", header=T, row.names = 1)
