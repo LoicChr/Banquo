@@ -95,7 +95,6 @@ wrapper_model <- function(id){
   source("main/priors.R", local = T)
   newZ <- rbind(out.DEopt1$member$bestmemit, out.DEopt2$member$bestmemit, out.DEopt3$member$bestmemit, out.DEopt4$member$bestmemit)
   newZ <- newZ[sample(1:nrow(newZ)),]
-  settings <- list(iterations = 3*4e5, nrChains = 4, Z= newZ) #50000 per chains in the one chain triplet
   settings <- list(iterations = 3*4e5, nrChains = 4, Z= newZ) 
 
   out <- runMCMC(bayesianSetup = bayesianSetup, settings = settings, sampler = 'DEzs') # Run the mcmc
