@@ -253,11 +253,11 @@ format_data <- function(out_results, id.abio, id.best){
 
 dat.spDis <- out_results %>% format_data(id.abio = id.abio, id.best = id.best) 
 Fig4 <- ggplot(dat.spDis, aes(x = DAYSUB, y = Cover*100)) +
-  geom_point(data = filter(dat.spDis,Model== 'Observed'), fill = 'black') + 
+  geom_point(data = filter(dat.spDis,Model== 'Observed'), colour = 'azure4') + 
   theme(legend.position = "bottom", legend.title=element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.text = element_text(colour = "black"), axis.line = element_line(colour = "black")) +
-  geom_smooth(mapping = aes(color = Model), se = F) + 
-  scale_color_manual(values=c("#000000", "#CC6677", "#117733")) +
+  geom_smooth(mapping = aes(color = Model), se = F,method = "gam", formula = y ~ s(x,k = 4), method.args= list(family ="tw")) + 
+  scale_color_manual(values=c("#000000", "#D95F02", "#1B9E77")) +
   facet_wrap(~Species, scales = 'free') + scale_y_continuous(limits =c(0,80),breaks = c(0,5,20,50,80)) +  coord_trans(y = "sqrt") +
   labs(x = "Days submerged per year", y = "Species cover (%)") + guides(linetype = "none") 
 ggsave("results/Fig4.eps", Fig4, width = 173, height = 173, units = "mm", scale = 1.2, bg = "white")
