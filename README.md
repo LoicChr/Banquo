@@ -43,4 +43,4 @@ BayesianTools, corpcor, DEoptim, extraDistr, ggpubr, mclust, mgcv, plyr, pROC, p
 2. run data_prep.R: from the raw data, this script prepares the 'data/data_ready.Rdata' object
 3. run traitspace_gen.R: this will use the content of 'data/data_ready.Rdata' to compute Traitspace and create 'data/traitspace_objs.Rdata' 
 4. run assembly_models.R: this script will run the Banquo models (more details of its functioning in the header of the script). after the models are run, the script saves the output in the 'posterior_objs.Rdata' objects
-5. run analysis_results.R: this script uses the posterior_objs.Rdata, the function in ./lib/ and the objects in ./data/ to create the figures and table from the article and the supplementary materials.
+5. run analysis_results.R: this script uses the posterior_objs.Rdata, the functions in ./lib/ and the objects in ./data/ to create the figures and the table from the article and the supplementary materials.
