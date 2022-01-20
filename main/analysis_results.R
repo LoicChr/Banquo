@@ -149,7 +149,7 @@ Fig2 <- ggplot(data_long, aes(x = DAYSUB, y = resp)) +
   geom_ribbon( aes(ymin = lwr, ymax = upr, fill = "#CC6677"), alpha = 0.5) +
   guides(fill= 'none') +
   facet_wrap(~trait, scales = "free",labeller=as_labeller(lbs, label_parsed), ncol = 1, nrow = 3)
-ggsave("results/Fig2.eps", Fig2, width = 80, height = 180, units = "mm", scale =1.5, bg = "white")
+ggsave("results/Figure_2.eps", Fig2, width = 80, height = 180, units = "mm", scale =1.5, bg = "white")
 
 ######
 
@@ -223,7 +223,7 @@ interaction_plots$'3tr_1' <- interaction_plots$`3tr`[[1]]
 interaction_plots$'3tr_2' <- interaction_plots$`3tr`[[2]]
 Fig3 <- ggarrange(plotlist = interaction_plots[c("NoTr", "Height", "poros","SLA", "3tr_1", "3tr_2")], nrow = 3, ncol = 2, common.legend = T, legend = 'right', labels = LETTERS[1:length(interaction_plots)]) 
 
-ggsave("results/Fig3.eps", Fig3, width = 180, height = 200, units = "mm", scale = 1.3, bg = "white")
+ggsave("results/Figure_3.eps", Fig3, width = 180, height = 200, units = "mm", scale = 1.3, bg = "white")
 #######
 
 ####### Generation of Figure 4 ################
@@ -260,7 +260,7 @@ Fig4 <- ggplot(dat.spDis, aes(x = DAYSUB, y = Cover*100)) +
   scale_color_manual(values=c("#000000", "#D95F02", "#1B9E77")) +
   facet_wrap(~Species, scales = 'free') + scale_y_continuous(limits =c(0,80),breaks = c(0,5,20,50,80)) +  coord_trans(y = "sqrt") +
   labs(x = "Days submerged per year", y = "Species cover (%)") + guides(linetype = "none") 
-ggsave("results/Fig4.eps", Fig4, width = 180, height = 180, units = "mm", scale = 1.2, bg = "white")
+ggsave("results/Figure_4.eps", Fig4, width = 180, height = 180, units = "mm", scale = 1.2, bg = "white")
 ################
 
 #### Generation of Supplementary Figure 4 ############
