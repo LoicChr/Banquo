@@ -40,7 +40,7 @@ wrapper_model <- function(id){
   abio = params[id, "abio"]
   traits_biotic = params[id, "traits_biotic"]
   
-  result_file = paste0("results_dummy/abio_", abio,"/",traits_biotic)
+  result_file = paste0("results/abio_", abio,"/",traits_biotic)
   if (!file.exists(result_file)) dir.create(result_file, recursive = T)
 
   # Data
@@ -107,7 +107,7 @@ wrapper_model <- function(id){
   dic.val <- DIC(out, start = thres)
   conv.val <- gelmanDiagnostics(out, start = thres)
 
-  list.objs <- c("dis", "conv.val", "dic.val", "abio", "traits_biotic", "list_params")
+  list.objs <- c("dis", "conv.val", "dic.val", "abio", "traits_biotic", "list_params", "tr")
   
   save(list = list.objs, file = paste0(result_file, "/posterior_objs.Rdata"))
 }
