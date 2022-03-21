@@ -7,6 +7,9 @@ This code is associated with the article: 'Predictions of biodiversity are impro
 ## Overview  
 The code models species abundances using functional traits, community data and environmental data. It assumes that species abundances are constrained by abiotic filtering (Traitspace model) and then competition (Banquo model). First species carrying capacities are modeled through the Traitspace model (using a trait-environment multivariate linear model) and then pairwise competitive interaction are calibrated using the Banquo model through a nloptr algorithm.
 
+This project has received funding from the European Union’s Horizon 2020 research and innovation programme under the Marie Skłodowska-
+Curie grant agreement No 840946.
+
 
 ### System requirements
 R 4.1.0
